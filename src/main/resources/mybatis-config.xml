@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="GBK" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--
+    Mybatis核心配置文件:可以完全由spring-mybatis.xml替代，
+                        但最好留着配置少量配置，只是标志着项目使用了mybatis
+-->
+<configuration>
+
+    <!-- 注意：mybatis的配置文件中，各个标签的顺序是有规定的 -->
+
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <typeAliases>
+        <package name="pojo"/>
+    </typeAliases>
+
+</configuration>

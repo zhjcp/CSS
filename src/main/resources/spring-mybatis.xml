@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+      <!-- ============================================== spring配置整合mybatis ===================================== -->
+      <!-- 1. 扫描数据库配置文件 配置好的字段在db.properties中会变色-->
+      <context:property-placeholder location="classpath:db.properties"/>
+
+
+
+    <!-- 2. 配置数据库连接池
+           DataSource:使用spring的数据源替换mybatis的数据库配置
+           我们在这里使用第三方提供的c3p0
+           其他方式：spring自带的DriverManagerDataSource  c3p0  dbcp  druid
+    -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!-- 配置连接池属性 -->
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <!-- c3p0连接池的私有属性（特性） -->
+        <property name="maxPoolSize" value="30"/>
+        <property name="minPoolSize" value="10"/>
+        <!-- 关闭连接后不自动commit -->
+        <property name="autoCommitOnClose" value="false"/>
+        <!-- 获取连接超时时间 -->
+        <property name="checkoutTimeout" value="10000"/>
+        <!-- 当获取连接失败重试次数 -->
+        <property name="acquireRetryAttempts" value="2"/>
+    </bean>
+
+    <!--  3.配置sqlSessionFactory
+      sqlSessionFactory:创建sqlSessionFactory的类
+                        由mybatis中原来的SqlSessionFactoryBuilder
+                        变成了spring中的SqlSessionFactoryBean
+    -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--绑定数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--绑定mybatis的配置文件 mybatis-config.xml-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!--绑定mybatis的映射文件 Mapper.xml  替代mybatis-config.xml中的mapper标签的作用 -->
+        <property name="mapperLocations" value="classpath:dao/*.xml"/>
+    </bean>
+
+    <!--  4.配置SqlSessionTemplate == SqlSession
+        SqlSessionTemplate：相当于原来mybatis中的SqlSession,而且还是线程安全的
+                            只能使用构造器注入，因为SqlSessionTemplate没有set方法
+    -->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"/>
+    </bean>
+
+    <!--
+         整合.方式一：a. 实现UserMapper接口、并定义SqlSessionTemplate(SqlSession)实例
+    -->
+    <!--  b. 注册Mapper接口的实现类到spring中 bean -->
+    <!--    <bean id="userMapperImpl_1" class="dao.UserMapperImpl_1">
+             <property name="sqlSessionTemplate" ref="sqlSession"/>
+    </bean>-->
+
+    <!--
+        整合.方式二： a. 实现UserMapper接口、并继承SqlSessionDaoSupport类
+                     SqlSessionDaoSupport类有属性sqlSessionFactory
+                                            有方法getSqlSession()可以直接获取SqlSession实例
+    -->
+    <!--  b. 注册Mapper接口的实现类到spring中 bean -->
+    <!--
+        <bean id="userMapperImpl_2" class="dao.UserMapperImpl_2">
+            <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        </bean>
+    -->
+
+    <!-- 整合.方式三：配置扫描Dao接口包，动态实现Dao接口注入到spring容器中
+                     扫描到dao接口后，spring通过代理自动帮我们实现该接口，
+                     不需要如同方式一、二一样手动创建Impl类
+                     代理生成的接口实现类默认是首字母小写的接口名
+                     error：如果mybatis的配置文件出错，很可能会代理失败，导致空引用！！！
+    -->
+    <!--解释 ：https://www.cnblogs.com/jpfss/p/7799806.html-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 本质是方式二：注入sqlSessionFactory
+             通过标签sqlSessionTemplateBeanName注入sqlSession也可以实现代理，本质则是方式一
+         -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!-- 指定需要扫描的dao接口所在的包 -->
+        <property name="basePackage" value="dao"/>
+    </bean>
+
+</beans>

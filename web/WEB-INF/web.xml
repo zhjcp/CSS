@@ -3,4 +3,48 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
+        <!--
+         配置springMvc的控制中心：DispatcherServlet：请求分发器&前端控制器，是整个SpringMVC的控制中心。
+                 用户发出请求，DispatcherServlet接收请求并拦截请求
+                 可以理解为前端和Servlet的中间层，而且本质也是Servlet
+        -->
+        <servlet>
+            <servlet-name>springMvcDispatcher</servlet-name>
+            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+            <!--DispatcherServlet需要绑定spring（包括springMvc）的配置文件
+                切记：整合之后这个配置文件是总的配置文件！！！
+            -->
+            <init-param>
+                <param-name>contextConfigLocation</param-name>
+                <param-value>classpath:applicationContext.xml</param-value>
+            </init-param>
+            <!--启动级别-->
+            <load-on-startup>1</load-on-startup>
+        </servlet>
+
+        <!--
+            在springMvc中的/ 和 /*
+            /: 只匹配所有的请求，不会匹配*.jsp 不会拦截被视图解析器拼接好的.jsp
+            /*: 既匹配所有的请求，也匹配*.jsp、*.js等，会拦截被视图解析器拼接好的.jsp拿去匹配控制器（控制器是没有.jsp后缀的)
+                so 匹配不到 so 404
+                不能访问到多视图的jsp，-->
+        <servlet-mapping>
+            <servlet-name>springMvcDispatcher</servlet-name>
+            <url-pattern>/</url-pattern>
+        </servlet-mapping>
+
+        <!-- filter /* 会拦截处理jsp  /不会拦截静态资源（jsp等）-->
+        <filter>
+            <filter-name>encoding</filter-name>
+            <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+            <init-param>
+                <param-name>encoding</param-name>
+                <param-value>utf-8</param-value>
+            </init-param>
+        </filter>
+        <filter-mapping>
+            <filter-name>encoding</filter-name>
+            <url-pattern>/*</url-pattern>
+        </filter-mapping>
 </web-app>

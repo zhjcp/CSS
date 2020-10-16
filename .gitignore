@@ -18,6 +18,8 @@ out/
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+web/statics
+
 # Package Files #
 *.jar
 *.war

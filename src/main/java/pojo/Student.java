@@ -1,69 +1,27 @@
 package pojo;
 
-public class Student {
-    String id;
-    String name;
-    String pwd;
-    String sex;
+public class Student extends User{
     String department;
     int grade;
     String className;
-    String phone;
-    String email;
     int selectionCoins;
     int requiredCredits;
     int majorCredits;
     int preCredits;
 
-    public Student() {
+    public Student(){
+
     }
 
-    public Student(String id, String name, String pwd, String sex, String department, int grade, String className, String phone, String email, int selectionCoins, int requiredCredits, int majorCredits, int preCredits) {
-        this.id = id;
-        this.name = name;
-        this.pwd = pwd;
-        this.sex = sex;
+    public Student(String id, String name, String pwd, String sex, String phone, String email, String department, int grade, String className, int selectionCoins, int requiredCredits, int majorCredits, int preCredits) {
+        super(id, name, pwd, sex, phone, email);
         this.department = department;
         this.grade = grade;
         this.className = className;
-        this.phone = phone;
-        this.email = email;
         this.selectionCoins = selectionCoins;
         this.requiredCredits = requiredCredits;
         this.majorCredits = majorCredits;
         this.preCredits = preCredits;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
     }
 
     public String getDepartment() {
@@ -88,22 +46,6 @@ public class Student {
 
     public void setClassName(String className) {
         this.className = className;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public int getSelectionCoins() {
@@ -136,5 +78,24 @@ public class Student {
 
     public void setPreCredits(int preCredits) {
         this.preCredits = preCredits;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "department='" + department + '\'' +
+                ", grade=" + grade +
+                ", className='" + className + '\'' +
+                ", selectionCoins=" + selectionCoins +
+                ", requiredCredits=" + requiredCredits +
+                ", majorCredits=" + majorCredits +
+                ", preCredits=" + preCredits +
+                ", id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", sex='" + sex + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

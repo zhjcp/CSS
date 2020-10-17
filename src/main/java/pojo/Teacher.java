@@ -1,59 +1,19 @@
 package pojo;
 
-public class Teacher {
-    String id;
-    String name;
-    String pwd;
-    String sex;
+import org.junit.Test;
+
+public class Teacher extends User{
     String department;
     String title;
-    String phone;
-    String email;
 
-    public Teacher() {
+    public Teacher(){
+
     }
 
-    public Teacher(String id, String name, String pwd, String sex, String department, String title, String phone, String email) {
-        this.id = id;
-        this.name = name;
-        this.pwd = pwd;
-        this.sex = sex;
+    public Teacher(String id, String name, String pwd, String sex, String phone, String email, String department, String title) {
+        super(id, name, pwd, sex, phone, email);
         this.department = department;
         this.title = title;
-        this.phone = phone;
-        this.email = email;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
     }
 
     public String getDepartment() {
@@ -72,19 +32,17 @@ public class Teacher {
         this.title = title;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "department='" + department + '\'' +
+                ", title='" + title + '\'' +
+                ", id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", sex='" + sex + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

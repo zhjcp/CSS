@@ -5,16 +5,17 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-     <!-- 自动扫描包：扫描services相关的bean @Service注解下的类-->
+     <!-- 自动扫描包：扫描services相关的bean @Service注解下的类  -->
     <context:component-scan base-package="service"/>
 
-    <!-- 不使用@Service注解，手动配置bean也可以 -->
-<!--    <bean id="booksServiceImpl" class="service.BooksServiceImpl">
-        &lt;!&ndash; 由于多个xml配置文件都放在ApplicationContext下， 即使没有显式import，
+     <!--  不使用@Service注解，手动配置bean也可以 -->
+    <bean id="stuLoginModify" class="service.student.LoginModify">
+        <!-- 由于多个xml配置文件都放在ApplicationContext下， 即使没有显式import，
              同一上下文下的配置文件还是能够互相引用对方配置好的bean ！！！
-             booksMapper来自spring-mybatis.xml &ndash;&gt;
-        <property name="booksMapper" ref="booksMapper"/>
-    </bean>-->
+             booksMapper来自spring-mybatis.xml -->
+        <property name="studentMapper" ref="studentMapper"/>
+    </bean>
+
 
     <!-- 配置事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

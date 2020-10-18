@@ -13,6 +13,12 @@
     <!-- 自动扫描包：扫描Controller相关的类  @Controller注解下的类 -->
     <context:component-scan base-package="controller"/>
 
+    <!-- 让spring-mvc不拦截静态资源，如.jsp .html 图片 视频等 防止404：
+     如果拦截.jsp这类静态资源，去匹配控制器，由于控制器是按名字匹配的，不包括后缀
+     所以，匹配不到就会报错404。
+    -->
+    <mvc:default-servlet-handler/>
+
     <!--
           hello项目里面的1、2步骤可以省略，在hello中只是为了理解原理
      -->

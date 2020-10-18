@@ -29,6 +29,10 @@
               background-color: #4158D0;
               background-image: linear-gradient(0deg, #4158D0 0%, #C850C0 30%, #FFCC70 66%, #ffffff 100%);
           }
+
+          .labelText{
+                line-height: 30px;
+           }
       </style>
   </head>
   <body class="cont">
@@ -43,13 +47,13 @@
           <form action="${pageContext.request.contextPath}/LoginController/login" method="post" onsubmit="return checkForm()">
               <div class="container" >
                   <div class="form-group col-md-offset-4 col-sm-8">
-                      <label class="col-sm-1" style="height: 30px">账号</label>
+                      <label class="col-sm-1 labelText" style="height: 30px">账号</label>
                       <div class="col-sm-4">
                           <input type="text" class="form-control" id="userName" name="id" placeholder="请输入账号">
                       </div>
                   </div>
                   <div class="form-group  col-md-offset-4 col-sm-8">
-                      <label class="col-sm-1" style="height: 30px">密码</label>
+                      <label class="col-sm-1 labelText" style="height: 30px">密码</label>
                       <div class="col-sm-4">
                           <input type="password" class="form-control" id="userPwd"  placeholder="请输入密码">
                       </div>
@@ -69,7 +73,7 @@
                   <!--  隐藏域  -->
                   <input type="hidden" id="md5-userPwd" name="pwd">
                   <div class="col-md-offset-5 col-md-2">
-                      <input type="submit" class="btn btn-primary btn-block" value="提交">
+                      <input type="submit" class="btn btn-primary btn-block" value="登录">
                   </div>
               </div>
           </form>

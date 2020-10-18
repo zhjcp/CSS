@@ -6,9 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pojo.Student;
-import pojo.Teacher;
-import pojo.User;
+import pojo.*;
 import service.student.LoginModify;
 
 @Controller
@@ -18,27 +16,50 @@ public class LoginController {
     @Qualifier("stuLoginModify")
     service.student.LoginModify stuLoginModify;
     @Autowired
-    @Qualifier("loginModify")
+    @Qualifier("teaLoginModify")
     service.teacher.LoginModify teaLoginModify;
-    service.administrator_d.LoginModify dLoginModify;
-    service.administrator_s.LoginModify sLoginModify;
+    @Autowired
+    @Qualifier("adminDLoginModify")
+    service.administrator_d.LoginModify adminDLoginModify;
+    @Autowired
+    @Qualifier("adminSLoginModify")
+    service.administrator_s.LoginModify adminSLoginModify;
 
     //登录控制
     @RequestMapping(value = "/LoginController/login",method = RequestMethod.POST)
     public String login(String id, String pwd, Model model){
         System.out.println("===========");
         System.out.println(id+"   "+pwd);
-
         //根据id前缀对用户身份分类处理
         if (id.substring(0,2).equals("MD")){
             //校级管理员
-            model.addAttribute("error","账号或者密码错误");
-            return "/index.jsp";
-        }else if (id.substring(0,2).equals("MS")){
+            AdminD adminD = adminDLoginModify.loginModify(id, pwd);
+            if(adminD!=null){
+                model.addAttribute("id",adminD.getId());//id可以传给前端，用来拼接头像路径
+                model.addAttribute("name",adminD.getName());
+                return "adminD/jsp/index";//跳转到主页
+            }else {
+                System.out.println("=====没找到该院系管理员");
+                model.addAttribute("error","账号或者密码错误");
+                return "redirect:/index.jsp";
+            }
+        }
+
+        else if (id.substring(0,2).equals("MS")){
             //院级管理员
-            model.addAttribute("error","账号或者密码错误");
-            return "/index.jsp";
-        }else if (id.substring(0,2).equals("ST")){
+            AdminS adminS = adminSLoginModify.loginModify(id, pwd);
+            if(adminS!=null){
+                model.addAttribute("id",adminS.getId());//id可以传给前端，用来拼接头像路径
+                model.addAttribute("name",adminS.getName());
+                return "adminS/jsp/index";//跳转到主页
+            }else {
+                System.out.println("=====没找到该校级管理员");
+                model.addAttribute("error","账号或者密码错误");
+                return "redirect:/index.jsp";
+            }
+        }
+
+        else if (id.substring(0,2).equals("ST")){
             //学生
             Student stu=stuLoginModify.loginModify(id, pwd);
             if(stu!=null){
@@ -50,7 +71,9 @@ public class LoginController {
                 model.addAttribute("error","账号或者密码错误");
                 return "redirect:/index.jsp";
             }
-        }else if (id.substring(0,2).equals("TE")){
+        }
+
+        else if (id.substring(0,2).equals("TE")){
             //老师
             Teacher tea = teaLoginModify.loginModify(id, pwd);
             if (tea!=null){
@@ -61,7 +84,9 @@ public class LoginController {
                 model.addAttribute("error","账号或者密码错误");
                 return "redirect:/index.jsp";
             }
-        }else {
+        }
+
+        else {
             //啥身份也不是
             model.addAttribute("error","账号或者密码错误");
             return "/index.jsp";

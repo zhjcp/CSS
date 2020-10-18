@@ -11,6 +11,6 @@
     <title>主页</title>
 </head>
 <body>
-        <h1>同学，你好！</h1>
+        <h1>${name}   同学，你好！</h1>
 </body>
 </html>

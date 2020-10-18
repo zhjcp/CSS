@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pojo.Teacher;
 
-@Service
+@Service("teaLoginModify")
 public class LoginModify {
     //service层调用dao层的方法操作数据库，需要一个Mapper实例
     @Autowired

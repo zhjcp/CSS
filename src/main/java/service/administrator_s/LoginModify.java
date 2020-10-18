@@ -1,12 +1,11 @@
 package service.administrator_s;
-
-import dao.User.AdminDMapper;
 import dao.User.AdminSMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import pojo.AdminD;
+import org.springframework.stereotype.Service;
 import pojo.AdminS;
 
+@Service("adminSLoginModify")
 public class LoginModify {
     //service层调用dao层的方法操作数据库，需要一个Mapper实例
     @Autowired

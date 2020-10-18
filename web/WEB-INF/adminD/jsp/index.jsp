@@ -11,6 +11,6 @@
     <title>主页</title>
 </head>
 <body>
-    <h1>欢迎你，院级管理员！</h1>
+    <h1>${name}   欢迎你，院级管理员！</h1>
 </body>
 </html>

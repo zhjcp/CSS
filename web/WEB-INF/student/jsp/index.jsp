@@ -20,6 +20,6 @@
 </head>
 <body>
         <img src="${pageContext.request.contextPath}/avators/ST000001.jpg">
-        <h1>${name}   同学，你好！</h1>
+        <h1>${sessionScope.name}  同学，你好！</h1>
 </body>
 </html>

@@ -80,7 +80,7 @@
 
         <%--
             <a href="${pageContext.request.contextPath}/WEB-INF/student/jsp/index.jsp">失败的超链接测试</a>
-            <a href="${pageContext.request.contextPath}/index2.jsp">成功的超链接测试</a>
+            <a href="${pageContext.request.contextPath}/test.jsp">成功的超链接测试</a>
             超链接本质上是重定向无法直接访问WEB-INF目录
             原因：不可以的,redirect是客户端重定向,也就是说客户端会重新发送一次请求,
                   还是会直接访问/WEB-INF/下的文件,客户端不能直接访问该目录，会被拒绝的

@@ -11,6 +11,6 @@
     <title>主页</title>
 </head>
 <body>
-    <h1>${name}   老师，你好！</h1>
+    <h1>${sessionScope.name}   老师，你好！</h1>
 </body>
 </html>

@@ -1,7 +1,7 @@
 package service.student;
 
-import dao.User.StudentMapper;
-import pojo.Student;
+import dao.StudentMapper;
+import pojo.user.Student;
 
 public class LoginModify {
     //service层调用dao层的方法操作数据库，需要一个Mapper实例

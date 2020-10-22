@@ -1,6 +1,6 @@
 package service.adminD;
 
-import dao.AdminDMapper;
+import dao.userDao.AdminDMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

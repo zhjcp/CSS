@@ -1,6 +1,6 @@
 package service.student;
 
-import dao.StudentMapper;
+import dao.userDao.StudentMapper;
 import pojo.user.Student;
 
 public class LoginModify {

@@ -1,4 +1,4 @@
-package dao;
+package dao.classDao;
 
 import org.apache.ibatis.annotations.Param;
 import pojo.classes.DepartmentClass;

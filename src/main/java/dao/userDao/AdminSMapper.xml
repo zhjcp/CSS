@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.AdminSMapper">
+<mapper namespace="dao.userDao.AdminSMapper">
     <select id="selectById" parameterType="string" resultType="pojo.user.AdminS">
             select * from css.admin_s where id=#{id}
         </select>

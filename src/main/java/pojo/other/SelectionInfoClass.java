@@ -1,6 +1,6 @@
 package pojo.other;
 
-public class SelectionInfo_Class {
+public class SelectionInfoClass {
     int count;
     int classId;
     String stuId;
@@ -9,10 +9,10 @@ public class SelectionInfo_Class {
     int stuNum;
     int state;//选课中-1、已选-2、已修-3
 
-    public SelectionInfo_Class() {
+    public SelectionInfoClass() {
     }
 
-    public SelectionInfo_Class(int count, int classId, String stuId, int selectionCoins, String teacherId, int stuNum, int state) {
+    public SelectionInfoClass(int count, int classId, String stuId, int selectionCoins, String teacherId, int stuNum, int state) {
         this.count = count;
         this.classId = classId;
         this.stuId = stuId;

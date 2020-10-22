@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.classDao.PeClassMapper">
+    <select id="selectAllPeClass" resultType="pojo.classes.PeClass">
+        select * from css.class_pe
+    </select>
+    <select id="selectPeClassByName" resultType="pojo.classes.PeClass">
+        select * from css.class_pe where name=#{name}
+    </select>
+</mapper>

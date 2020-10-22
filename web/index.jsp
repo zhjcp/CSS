@@ -42,7 +42,21 @@
 
                   使用：使用onsubmit = "return f"指定提交验证函数f，f应该有布尔返回值
       -->
-      <div style="height: 26%"></div>
+
+      <div class="container">
+          <div class="col-md-12 column">
+              <div class="row clearfix">
+                  <div class="page-header">
+                      <h1 align="center">
+                          <small>选  课  系  统  登  录</small>
+                      </h1>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div style="height: 16%"></div>
+
       <div>
           <form action="${pageContext.request.contextPath}/LoginController/login" method="post" onsubmit="return checkForm()">
               <div class="container" >

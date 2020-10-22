@@ -1,4 +1,4 @@
-package dao;
+package dao.userDao;
 
 import org.apache.ibatis.annotations.Param;
 import pojo.user.AdminS;

@@ -46,7 +46,7 @@
         <!--绑定mybatis的配置文件 mybatis-config.xml-->
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <!--绑定mybatis的映射文件 Mapper.xml  替代mybatis-config.xml中的mapper标签的作用 -->
-        <property name="mapperLocations" value="classpath:dao/*.xml" />
+        <property name="mapperLocations" value="classpath*:dao/userDao/*.xml,dao/classDao/*.xml,dao/otherDao/*.xml"/>
     </bean>
 
     <!--  4.配置SqlSessionTemplate == SqlSession

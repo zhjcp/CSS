@@ -82,4 +82,46 @@ public class Test {
         boolean st000001 = timeModifyService.modifyOpTime(1, 3, "ST000001");
         System.out.println(st000001);
     }
+
+    @org.junit.Test
+    //测试提交公选课选课
+    public void testSubmit1(){
+        ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+        CourseSelectService sCSSI = (CourseSelectService) context.getBean("stuCourseSelectServiceImpl");
+        boolean f1 = sCSSI.tryToAddSelection(20002, "ST000001", 20);
+        System.out.println("======="+f1);
+    }
+
+    @org.junit.Test
+    //测试提交体育课选课
+    public void testSubmit2(){
+        ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+        CourseSelectService sCSSI = (CourseSelectService) context.getBean("stuCourseSelectServiceImpl");
+        boolean f = sCSSI.tryToAddSelection(10001, "ST000001", 20);
+        System.out.println("======="+f);
+    }
+
+    @org.junit.Test
+    //测试专业选修课选课
+    public void testSubmit3(){
+        ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+        CourseSelectService sCSSI = (CourseSelectService) context.getBean("stuCourseSelectServiceImpl");
+        boolean f = sCSSI.tryToAddSelection(5, "ST000001", 20);
+        System.out.println("======="+f);
+    }
+
+    @org.junit.Test
+    public void testSubmit4(){
+        ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+        CourseSelectService sCSSI = (CourseSelectService) context.getBean("stuCourseSelectServiceImpl");
+        boolean f2 = sCSSI.tryToAddSelectionGroup(1, "ST000001", 20);
+        System.out.println("======="+f2);
+    }
+
+    @org.junit.Test
+    public void testSelectMyAllSelectedCourse(){
+        ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+        CourseSelectService sCSSI = (CourseSelectService) context.getBean("stuCourseSelectServiceImpl");
+        sCSSI.selectMyAllSelectedCourse("ST000001");
+    }
 }

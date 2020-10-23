@@ -53,6 +53,20 @@ public class StudentController {
             return "student/jsp/1";//存在优化空间，应该给与alert提示而不是直接刷新
         }
     }
+    // 1.. 提交必修课套餐选课
+    //      ps：选课币的数量条件验证交给了前端
+    @RequestMapping("/StudentController/submitASelectionGrouping/{groupId}/{selectionCoins}")
+    public String submitASelectionGroup(@PathVariable int groupId,@PathVariable int selectionCoins,Model model,HttpSession session){
+        boolean submitFlag = courseSelectService.tryToAddSelectionGroup(groupId, session.getId(), selectionCoins);
+        if (submitFlag==true) {
+            return "student/jsp/1";//提交成功返回上一级
+        }else {
+            model.addAttribute("msg","error");//传递时间段错误信息，可以在前端根据msg判断
+            return "student/jsp/1_1";//存在优化空间，应该给与alert提示而不是直接刷新
+        }
+    }
+
+
 
     // 1.2 转到专业选修课选课
     @RequestMapping("/StudentController/toSelectSelectiveCourse")
@@ -76,6 +90,18 @@ public class StudentController {
         model.addAttribute("selectiveCourseList",selectiveCourseList);
         return "student/jsp/1_2_";
     }
+    // 1.2.. 提交专业课选课
+    @RequestMapping("/StudentController/submitASelection2/{courseId}/{selectionCoins}")
+    public String submitASelection2(@PathVariable int courseId, @PathVariable int selectionCoins,Model model,HttpSession session){
+        boolean submitFlag = courseSelectService.tryToAddSelection(courseId, session.getId(), selectionCoins);
+        if (submitFlag==true){
+            return "student/jsp/1_2";
+        }else {
+            model.addAttribute("msg","error");//传递选课失败错误信息，可以在前端根据msg判断
+            return "student/jsp/1_2_";//存在优化空间，应该给与alert提示而不是直接刷新
+        }
+    }
+
 
 
     // 1.3 转到体育课选课
@@ -100,6 +126,18 @@ public class StudentController {
         model.addAttribute("peCourseList", peCourseList);
         return "student/jsp/1_3_";
     }
+    // 1.3.. 提交体育课选课
+    @RequestMapping("/StudentController/submitASelection3/{courseId}/{selectionCoins}")
+    public String submitASelection3(@PathVariable int courseId, @PathVariable int selectionCoins,Model model,HttpSession session){
+        boolean submitFlag = courseSelectService.tryToAddSelection(courseId, session.getId(), selectionCoins);
+        if (submitFlag==true){
+            return "student/jsp/1_3";
+        }else {
+            model.addAttribute("msg","error");//传递选课失败错误信息，可以在前端根据msg判断
+            return "student/jsp/1_3_";//存在优化空间，应该给与alert提示而不是直接刷新
+        }
+    }
+
 
 
     // 1.4 转到公选课选课
@@ -126,6 +164,18 @@ public class StudentController {
         model.addAttribute("publicCourseList", publicCourseList);
         return "student/jsp/1_4_";
     }
+    // 1.4.. 提交公选课选课
+    @RequestMapping("/StudentController/submitASelection4/{courseId}/{selectionCoins}")
+    public String submitASelection4(@PathVariable int courseId, @PathVariable int selectionCoins,Model model,HttpSession session){
+        boolean submitFlag = courseSelectService.tryToAddSelection(courseId, session.getId(), selectionCoins);
+        if (submitFlag==true){
+            return "student/jsp/1_4";
+        }else {
+            model.addAttribute("msg","error");//传递选课失败信息，可以在前端根据msg判断
+            return "student/jsp/1_4_";//存在优化空间，应该给与alert提示而不是直接刷新
+        }
+    }
+
 
 
     // 2. 转到查询个人课程信息
@@ -134,6 +184,13 @@ public class StudentController {
         return "student/jsp/2";
     }
 
+    // 2.1 退课
+    @RequestMapping("/StudentController/submitAReturn")
+    public String submitAReturn(HttpSession session){
+        //step1：根据课程的id 学生id删除在selections表内的记录
+        //step2： 根据课程的id，将stuNum减1
+        return null;
+    }
 
     // 3. 转到课表
     @RequestMapping("/StudentController/toSelectTable")

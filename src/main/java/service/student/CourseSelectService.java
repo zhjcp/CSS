@@ -1,9 +1,6 @@
 package service.student;
 
-import pojo.classes.DepartmentCourse;
-import pojo.classes.NecessaryCourseGroup;
-import pojo.classes.PeCourse;
-import pojo.classes.PublicCourse;
+import pojo.classes.*;
 
 import java.util.List;
 
@@ -35,4 +32,13 @@ public interface CourseSelectService {
 
     //查找一门公选课的所有课堂（同一门课，不同老师）
     List<PublicCourse> selectPublicByCourseName(String className);
+
+    // 提交必修课之外的选课 (首先要看这门课程有没有满)
+    public boolean tryToAddSelection(int courseId, String stuId, int selectionCoins);
+
+    // 提交必修课套餐的选择
+    public boolean tryToAddSelectionGroup(int groupId,String stuId,int selectionCoins);
+
+    // 查询一名学生的所有已选课程 （提供给 查看个人课程信息）
+    public List<Course> selectMyAllSelectedCourse(String stuId);
 }

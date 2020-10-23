@@ -6,4 +6,36 @@
         <select id="selectById" parameterType="string" resultType="pojo.user.Student">
             select * from css.student where id=#{id}
         </select>
+
+        <update id="updateSelectionCoinsById">
+            update css.student set selectionCoins=#{selectionCoins} where id=#{id}
+        </update>
+
+        <select id="selectMyNecessaryCourse" resultType="pojo.classes.Course">
+            select  cd.id id,cd.name name,cd.type type,cd.hours hours,cd.credits credits,
+                    cd.description description,cd.capacity capacity,cd.stuNum stuNum,cd.teacherName teacherName
+            from css.necessary_selections ns,css.course_department cd
+            where ns.stuId=#{id} and ns.courseId=cd.id
+        </select>
+
+        <select id="selectMySelectiveCourse" resultType="pojo.classes.Course">
+            select  cd.id id,cd.name name,cd.type type,cd.hours hours,cd.credits credits,
+                    cd.description description,cd.capacity capacity,cd.stuNum stuNum, cd.teacherName teacherName
+            from css.selctive_selections ss,css.course_department cd
+            where ss.stuId=#{id} and ss.courseId=cd.id
+        </select>
+
+        <select id="selectMyPeCourse" resultType="pojo.classes.Course">
+            select  cp.id id,cp.name name,cp.type type,cp.hours hours,cp.credits credits,
+                    cp.description description,cp.capacity capacity,cp.stuNum stuNum,cp.teacherName teacherName
+            from css.pe_selections ps,css.course_pe cp
+            where ps.stuId=#{id} and ps.courseId=cp.id
+        </select>
+
+        <select id="selectMyPublicCourse" resultType="pojo.classes.Course">
+            select  cp.id id,cp.name name,cp.type type,cp.hours hours,cp.credits credits,
+                    cp.description description,cp.capacity capacity,cp.stuNum stuNum,cp.teacherName teacherName
+            from css.public_selections ps,css.course_public cp
+            where ps.stuId=#{id} and ps.courseId=cp.id
+        </select>
 </mapper>

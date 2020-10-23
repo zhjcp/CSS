@@ -5,23 +5,25 @@ public class Course {
     String name;
     String type;
     String teacherName;
-    int capacity;
     int hours;
     int credits;
     String description;
+    int capacity;
+    int stuNum;
 
     public Course() {
     }
 
-    public Course(int id, String name, String type, String teacherName, int capacity, int hours, int credits, String description) {
+    public Course(int id, String name, String type, String teacherName, int hours, int credits, String description, int capacity, int stuNum) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.teacherName = teacherName;
-        this.capacity = capacity;
         this.hours = hours;
         this.credits = credits;
         this.description = description;
+        this.capacity = capacity;
+        this.stuNum = stuNum;
     }
 
     public int getId() {
@@ -56,14 +58,6 @@ public class Course {
         this.teacherName = teacherName;
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
     public int getHours() {
         return hours;
     }
@@ -86,5 +80,36 @@ public class Course {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public int getStuNum() {
+        return stuNum;
+    }
+
+    public void setStuNum(int stuNum) {
+        this.stuNum = stuNum;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", teacherName='" + teacherName + '\'' +
+                ", hours=" + hours +
+                ", credits=" + credits +
+                ", description='" + description + '\'' +
+                ", capacity=" + capacity +
+                ", stuNum=" + stuNum +
+                '}';
     }
 }

@@ -6,7 +6,16 @@
     <select id="selectAllPeCourse" resultType="pojo.classes.PeCourse">
         select * from css.course_pe
     </select>
+
     <select id="selectPeCourseByName" resultType="pojo.classes.PeCourse">
         select * from css.course_pe where name=#{name}
     </select>
+
+    <select id="selectByCourseId" resultType="pojo.classes.PeCourse">
+        select * from css.course_pe where id=#{id}
+    </select>
+
+    <update id="updateStuNum">
+        update css.course_pe set stuNum=#{stuNum} where id=#{id}
+    </update>
 </mapper>

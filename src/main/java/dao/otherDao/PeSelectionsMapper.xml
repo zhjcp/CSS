@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.otherDao.PeSelectionsMapper">
+    <insert id="addStuSelection" parameterType="pojo.other.CourseSelections">
+        insert into css.pe_selections
+            (courseId, stuId, selectionCoins, teacherId, state)
+        values
+            (#{courseId}, #{stuId}, #{selectionCoins}, #{teacherId}, #{state})
+    </insert>
+
+    <delete id="deleteStuSelection" parameterType="_int">
+        delete from css.pe_selections where courseId=#{courseId} and stuId=#{stuId}
+    </delete>
+
+    <select id="selectACourseById" resultType="pojo.other.CourseSelections">
+        select * from css.pe_selections where courseId=#{courseId}
+    </select>
+
+    <select id="selectStuSelectionsById" resultType="pojo.other.CourseSelections">
+        select * from css.pe_selections where stuId=#{stuId}
+    </select>
+</mapper>

@@ -31,9 +31,6 @@ public class TimeModifyServiceImpl implements TimeModifyService {
                     Date date1 = new Date(Long.parseLong(sysState.getTime1()));
                     Date date2 = new Date(Long.parseLong(sysState.getTime2()));
                     Date dateNow =new Date(Calendar.getInstance().getTimeInMillis());
-                System.out.println("=====date1:"+date1+"time1:"+sysState.getTime1());
-                System.out.println("=====date2:"+date2+"time2:"+sysState.getTime2());
-                System.out.println("====="+dateNow);
                 if (dateNow.compareTo(date1) >= 0 && dateNow.compareTo(date2) <= 0) {
                         flag=true;//合法时间
                     }

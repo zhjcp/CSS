@@ -1,25 +1,30 @@
 package pojo.classes;
 
 public class DepartmentCourse extends Course {
-        int group;
+        int groupId;
         int targetGrade;
 
+        public DepartmentCourse(){
 
-        public DepartmentCourse() {
         }
 
-        public DepartmentCourse(int id, String name, String type, String teacherName, int capacity, int hours, int credits, String description, int group, int targetGrade) {
-                super(id, name, type, teacherName, capacity, hours, credits, description);
-                this.group = group;
+        public DepartmentCourse(int groupId, int targetGrade) {
+                this.groupId = groupId;
                 this.targetGrade = targetGrade;
         }
 
-        public int getGroup() {
-                return group;
+        public DepartmentCourse(int id, String name, String type, String teacherName, int hours, int credits, String description, int capacity, int stuNum, int groupId, int targetGrade) {
+                super(id, name, type, teacherName, hours, credits, description, capacity, stuNum);
+                this.groupId = groupId;
+                this.targetGrade = targetGrade;
         }
 
-        public void setGroup(int group) {
-                this.group = group;
+        public int getGroupId() {
+                return groupId;
+        }
+
+        public void setGroupId(int groupId) {
+                this.groupId = groupId;
         }
 
         public int getTargetGrade() {
@@ -33,16 +38,17 @@ public class DepartmentCourse extends Course {
         @Override
         public String toString() {
                 return "DepartmentCourse{" +
-                        "group=" + group +
+                        "group=" + groupId +
                         ", targetGrade=" + targetGrade +
                         ", id=" + id +
                         ", name='" + name + '\'' +
                         ", type='" + type + '\'' +
                         ", teacherName='" + teacherName + '\'' +
-                        ", capacity=" + capacity +
                         ", hours=" + hours +
                         ", credits=" + credits +
                         ", description='" + description + '\'' +
+                        ", capacity=" + capacity +
+                        ", stuNum=" + stuNum +
                         '}';
         }
 }

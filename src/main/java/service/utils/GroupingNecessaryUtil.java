@@ -12,8 +12,8 @@ public class GroupingNecessaryUtil {
         // 1. 首先统计有多少组套餐，并且记录不同的组号
         ArrayList<Integer> groupNumList=new ArrayList<>();
         for (DepartmentCourse departmentCourse : classList) {
-            if (!chargeExist(departmentCourse.getGroup(),groupNumList)){
-                groupNumList.add(departmentCourse.getGroup());
+            if (!chargeExist(departmentCourse.getGroupId(),groupNumList)){
+                groupNumList.add(departmentCourse.getGroupId());
             }
         }
         // 2. 长度等于套餐组数的List lambda
@@ -26,7 +26,7 @@ public class GroupingNecessaryUtil {
         // 3. 将必修课放置到组号对应的位置
         for (DepartmentCourse departmentCourse : classList) {
             for (int i=0;i<length;i++){
-                if (departmentCourse.getGroup()==groupNumList.get(i)){
+                if (departmentCourse.getGroupId()==groupNumList.get(i)){
                     classGroupList.get(i).addNecessaryCourse(departmentCourse);
                 }
             }

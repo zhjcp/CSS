@@ -1,33 +1,21 @@
 package pojo.other;
 
-public class SelectionInfoCourse {
-    int count;
+public class CourseSelections {
     int courseId;
     String stuId;
     int selectionCoins;
     String teacherId;
-    int stuNum;
     int state;//选课中-1、已选-2、已修-3
 
-    public SelectionInfoCourse() {
+    public CourseSelections() {
     }
 
-    public SelectionInfoCourse(int count, int courseId, String stuId, int selectionCoins, String teacherId, int stuNum, int state) {
-        this.count = count;
+    public CourseSelections(int courseId, String stuId, int selectionCoins, String teacherId, int state) {
         this.courseId = courseId;
         this.stuId = stuId;
         this.selectionCoins = selectionCoins;
         this.teacherId = teacherId;
-        this.stuNum = stuNum;
         this.state = state;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
     }
 
     public int getCourseId() {
@@ -62,19 +50,22 @@ public class SelectionInfoCourse {
         this.teacherId = teacherId;
     }
 
-    public int getStuNum() {
-        return stuNum;
-    }
-
-    public void setStuNum(int stuNum) {
-        this.stuNum = stuNum;
-    }
-
     public int getState() {
         return state;
     }
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "CourseSelections{" +
+                ", courseId=" + courseId +
+                ", stuId='" + stuId + '\'' +
+                ", selectionCoins=" + selectionCoins +
+                ", teacherId='" + teacherId + '\'' +
+                ", state=" + state +
+                '}';
     }
 }

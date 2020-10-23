@@ -1,6 +1,6 @@
 package pojo.classes;
 
-public class Classes {
+public class Course {
     int id;
     String name;
     String type;
@@ -10,10 +10,10 @@ public class Classes {
     int credits;
     String description;
 
-    public Classes() {
+    public Course() {
     }
 
-    public Classes(int id, String name, String type, String teacherName, int capacity, int hours, int credits, String description) {
+    public Course(int id, String name, String type, String teacherName, int capacity, int hours, int credits, String description) {
         this.id = id;
         this.name = name;
         this.type = type;

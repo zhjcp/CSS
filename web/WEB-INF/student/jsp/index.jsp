@@ -21,5 +21,6 @@
 <body>
         <img src="${pageContext.request.contextPath}/avators/ST000001.jpg">
         <h1>${sessionScope.name}  同学，你好！</h1>
+        <a href="${pageContext.request.contextPath}/StudentController/toSelectCourse">进入选课选择界面</a>
 </body>
 </html>

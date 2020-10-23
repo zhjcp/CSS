@@ -2,15 +2,15 @@ package service;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import pojo.classes.NecessaryClassGroup;
-import pojo.classes.PeClass;
-import pojo.classes.PublicClass;
+import pojo.classes.DepartmentCourse;
+import pojo.classes.NecessaryCourseGroup;
+import pojo.classes.PeCourse;
+import pojo.classes.PublicCourse;
 import service.student.CourseSelectService;
+import service.student.TimeModifyService;
 
 import java.sql.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Test {
     @org.junit.Test
@@ -18,7 +18,7 @@ public class Test {
     public void testGroping(){
         ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
         CourseSelectService stuCourseSelectServiceImpl = (CourseSelectService) context.getBean("stuCourseSelectServiceImpl");
-        List<NecessaryClassGroup> departmentClasses = stuCourseSelectServiceImpl.selectNecessaryCourseById("ST000001");
+        List<NecessaryCourseGroup> departmentClasses = stuCourseSelectServiceImpl.selectNecessaryCourseGrouping("ST000001");
         System.out.println(departmentClasses);
     }
 
@@ -28,7 +28,6 @@ public class Test {
     public void testTimeStamps(){
         Date date1 = new Date(Long.parseLong("1603345529973"));
         System.out.println(date1);
-
 
         Date date2 = new Date(Long.parseLong("1608365549973"));
         System.out.println(date2);
@@ -41,10 +40,46 @@ public class Test {
     public void testMap(){
         ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
         CourseSelectService stuCourseSelectServiceImpl = (CourseSelectService) context.getBean("stuCourseSelectServiceImpl");
-        List<PublicClass> publicClassList = stuCourseSelectServiceImpl.selectPublicCourseUnique();
-        System.out.println(publicClassList);
+        List<PublicCourse> publicCourseList = stuCourseSelectServiceImpl.selectPublicCourseUnique();
+        System.out.println(publicCourseList);
 
-        List<PeClass> peClassList = stuCourseSelectServiceImpl.selectPeCourseUnique();
-        System.out.println(peClassList);
+        List<PeCourse> peCourseList = stuCourseSelectServiceImpl.selectPeCourseUnique();
+        System.out.println(peCourseList);
+    }
+
+    //CourseSelectService 单元测试
+    @org.junit.Test
+    public void testSelect(){
+        ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+        CourseSelectService stuCourseSelectServiceImpl = (CourseSelectService) context.getBean("stuCourseSelectServiceImpl");
+        // 1. 必修
+        List<NecessaryCourseGroup> necessaryCourseGroupList = stuCourseSelectServiceImpl.selectNecessaryCourseGrouping("ST000001");
+        System.out.println(necessaryCourseGroupList);
+        System.out.println("======================================");
+        // 2. 专业选修
+        List<DepartmentCourse> departmentCourseList1 = stuCourseSelectServiceImpl.selectSelectiveCourseUnique("ST000001");
+        System.out.println(departmentCourseList1);
+        List<DepartmentCourse> departmentCourseList2 = stuCourseSelectServiceImpl.selectSelectiveByCourseName("离散数学");
+        System.out.println(departmentCourseList2);
+        System.out.println("=======================================");
+        // 3. 体育
+        List<PeCourse> peCourseList1 = stuCourseSelectServiceImpl.selectPeCourseUnique();
+        System.out.println(peCourseList1);
+        List<PeCourse> peCourseList2 = stuCourseSelectServiceImpl.selectPeByCourseName("篮球");
+        System.out.println(peCourseList2);
+        System.out.println("=======================================");
+        // 4. 公选
+        List<PublicCourse> publicCourseList1 = stuCourseSelectServiceImpl.selectPublicCourseUnique();
+        System.out.println(publicCourseList1);
+        List<PublicCourse> publicCourseList2 = stuCourseSelectServiceImpl.selectPublicByCourseName("秦汉历史人物研究");
+        System.out.println(publicCourseList2);
+    }
+
+    @org.junit.Test
+    public void testTime(){
+        ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+        TimeModifyService timeModifyService = (TimeModifyService) context.getBean("timeModifyServiceImpl");
+        boolean st000001 = timeModifyService.modifyOpTime(1, 3, "ST000001");
+        System.out.println(st000001);
     }
 }

@@ -1,16 +1,16 @@
 package pojo.classes;
 
-public class PublicClass extends Classes{
-    public PublicClass() {
+public class PublicCourse extends Course {
+    public PublicCourse() {
     }
 
-    public PublicClass(int id, String name, String type, String teacherName, int capacity, int hours, int credits, String description) {
+    public PublicCourse(int id, String name, String type, String teacherName, int capacity, int hours, int credits, String description) {
         super(id, name, type, teacherName, capacity, hours, credits, description);
     }
 
     @Override
     public String toString() {
-        return "PublicClass{" +
+        return "PublicCourse{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +

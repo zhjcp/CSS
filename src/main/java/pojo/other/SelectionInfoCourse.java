@@ -1,20 +1,20 @@
 package pojo.other;
 
-public class SelectionInfoClass {
+public class SelectionInfoCourse {
     int count;
-    int classId;
+    int courseId;
     String stuId;
     int selectionCoins;
     String teacherId;
     int stuNum;
     int state;//选课中-1、已选-2、已修-3
 
-    public SelectionInfoClass() {
+    public SelectionInfoCourse() {
     }
 
-    public SelectionInfoClass(int count, int classId, String stuId, int selectionCoins, String teacherId, int stuNum, int state) {
+    public SelectionInfoCourse(int count, int courseId, String stuId, int selectionCoins, String teacherId, int stuNum, int state) {
         this.count = count;
-        this.classId = classId;
+        this.courseId = courseId;
         this.stuId = stuId;
         this.selectionCoins = selectionCoins;
         this.teacherId = teacherId;
@@ -30,12 +30,12 @@ public class SelectionInfoClass {
         this.count = count;
     }
 
-    public int getClassId() {
-        return classId;
+    public int getCourseId() {
+        return courseId;
     }
 
-    public void setClassId(int classId) {
-        this.classId = classId;
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
     public String getStuId() {

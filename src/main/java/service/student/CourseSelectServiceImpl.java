@@ -1,16 +1,16 @@
 package service.student;
 
-import dao.classDao.DepartmentClassMapper;
-import dao.classDao.PeClassMapper;
-import dao.classDao.PublicClassMapper;
+import dao.classDao.DepartmentCourseMapper;
+import dao.classDao.PeCourseMapper;
+import dao.classDao.PublicCourseMapper;
 import dao.userDao.StudentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import pojo.classes.DepartmentClass;
-import pojo.classes.NecessaryClassGroup;
-import pojo.classes.PeClass;
-import pojo.classes.PublicClass;
+import pojo.classes.DepartmentCourse;
+import pojo.classes.NecessaryCourseGroup;
+import pojo.classes.PeCourse;
+import pojo.classes.PublicCourse;
 import pojo.user.Student;
 import service.utils.GroupingNecessaryUtil;
 
@@ -24,90 +24,104 @@ public class CourseSelectServiceImpl implements CourseSelectService{
     @Qualifier("studentMapper")
     StudentMapper studentMapper;
     @Autowired
-    @Qualifier("departmentClassMapper")
-    DepartmentClassMapper departmentClassMapper;
+    @Qualifier("departmentCourseMapper")
+    DepartmentCourseMapper departmentCourseMapper;
     @Autowired
-    @Qualifier("peClassMapper")
-    PeClassMapper peClassMapper;
+    @Qualifier("peCourseMapper")
+    PeCourseMapper peCourseMapper;
     @Autowired
-    @Qualifier("publicClassMapper")
-    PublicClassMapper publicClassMapper;
+    @Qualifier("publicCourseMapper")
+    PublicCourseMapper publicCourseMapper;
 
     //查找所有必修课 分组
-    public List<NecessaryClassGroup> selectNecessaryCourseById(String stuId){
+    public List<NecessaryCourseGroup> selectNecessaryCourseGrouping(String stuId){
         Student stu = studentMapper.selectById(stuId);
         int grade = stu.getGrade();
         String department = stu.getDepartment();
-        List<DepartmentClass> departmentClasses = departmentClassMapper.selectNecessaryCourse(grade, department);
-        List<NecessaryClassGroup> groupList= GroupingNecessaryUtil.group(departmentClasses);//套餐分组
+        List<DepartmentCourse> departmentCourses = departmentCourseMapper.selectNecessaryCourse(grade, department);
+        List<NecessaryCourseGroup> groupList= GroupingNecessaryUtil.group(departmentCourses);//套餐分组
         return groupList;
     }
 
-    //查找所有专业选修课
-    public List<DepartmentClass> selectSelectiveCourseById(String stuId){
+
+    //查找所有不重名的专业选修课
+    public List<DepartmentCourse> selectSelectiveCourseUnique(String stuId){
         Student stu = studentMapper.selectById(stuId);
         int grade = stu.getGrade();
         String department = stu.getDepartment();
-        return departmentClassMapper.selectSelectiveCourse(grade,department);
+        List<DepartmentCourse> departmentCourseList1 = departmentCourseMapper.selectSelectiveCourse(grade, department);
+        Map map=new HashMap();
+        for (DepartmentCourse departmentCourse : departmentCourseList1) {
+            map.put(departmentCourse.getName(), departmentCourse);
+        }
+        List<DepartmentCourse> departmentCourseList2 = (List<DepartmentCourse>) map.values().stream().collect(Collectors.toList());
+        return departmentCourseList2;
     }
+
+    //查找一门体育课的所有课堂
+    @Override
+    public List<DepartmentCourse> selectSelectiveByCourseName(String className) {
+        return departmentCourseMapper.selectSelectiveCourseByName(className);
+    }
+
+
 
     //查找所有的体育课
     @Override
-    public List<PeClass> selectAllPECourse() {
-        return peClassMapper.selectAllPeClass();
+    public List<PeCourse> selectAllPeCourse() {
+        return peCourseMapper.selectAllPeCourse();
     }
 
     @Override
     //查找所有不重名的体育课
-    public List<PeClass> selectPeCourseUnique() {
-        List<PeClass> peClassList1 = peClassMapper.selectAllPeClass();
+    public List<PeCourse> selectPeCourseUnique() {
+        List<PeCourse> peCourseList1 = peCourseMapper.selectAllPeCourse();
         Map map=new HashMap();
-        for (PeClass peClass : peClassList1) {
-            map.put(peClass.getName(),peClass);//map 的key唯一
+        for (PeCourse peCourse : peCourseList1) {
+            map.put(peCourse.getName(), peCourse);//map 的key唯一
         }
 
-        List<PeClass> peClassList2= (List<PeClass>) map.values().stream().collect(Collectors.toList());
-        return peClassList2;
+        List<PeCourse> peCourseList2 = (List<PeCourse>) map.values().stream().collect(Collectors.toList());
+        return peCourseList2;
     }
 
     @Override
     //查找一门体育课的所有课堂
-    public List<PeClass> selectPeCourseByName(String className) {
-            return peClassMapper.selectPeClassByName(className);
+    public List<PeCourse> selectPeByCourseName(String className) {
+            return peCourseMapper.selectPeCourseByName(className);
     }
 
 
     //查找所有的公选课
     @Override
-    public List<PublicClass> selectAllPublicCourse() {
-        return publicClassMapper.selectAllPublicCourse();
+    public List<PublicCourse> selectAllPublicCourse() {
+        return publicCourseMapper.selectAllPublicCourse();
     }
 
 
     //查找所有公选课（同一门课程，不同老师，只取一个实例）
     @Override
-    public List<PublicClass> selectPublicCourseUnique() {
-        List<PublicClass> publicClassList1 = publicClassMapper.selectAllPublicCourse();
+    public List<PublicCourse> selectPublicCourseUnique() {
+        List<PublicCourse> publicCourseList1 = publicCourseMapper.selectAllPublicCourse();
         Map map=new HashMap();
-        for (PublicClass publicClass : publicClassList1) {
-            map.put(publicClass.getName(),publicClass);//map 的key唯一
+        for (PublicCourse publicCourse : publicCourseList1) {
+            map.put(publicCourse.getName(), publicCourse);//map 的key唯一
         }
-
-        List<PublicClass> publicClassList2= (List<PublicClass>) map.values().stream().collect(Collectors.toList());
+        List<PublicCourse> publicCourseList2 = (List<PublicCourse>) map.values().stream().collect(Collectors.toList());
         /*
         Collection<PublicClass> values = map.values();
         for (PublicClass publicClass : values) {
             publicClassList2.add(publicClass);
         }
         */
-        return publicClassList2;
+        return publicCourseList2;
     }
 
 
     @Override
     //查找一门公选课的所有课堂（同一门课，不同老师）
-    public List<PublicClass> selectPublicCourseByName(String className) {
-        return publicClassMapper.selectPublicCourseByName(className);
+    public List<PublicCourse> selectPublicByCourseName(String className) {
+        return publicCourseMapper.selectPublicCourseByName(className);
     }
 
 

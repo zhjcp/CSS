@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>选课</title>
+    <title>选择选课类型</title>
 </head>
 <body>
-1
+    <a href="${pageContext.request.contextPath}/StudentController/toSelectPublicCourse/1/3">去选公选课</a>
 </body>
 </html>

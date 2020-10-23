@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pojo.classes.DepartmentClass;
-import pojo.classes.NecessaryClassGroup;
-import pojo.classes.PeClass;
-import pojo.classes.PublicClass;
+import pojo.classes.DepartmentCourse;
+import pojo.classes.NecessaryCourseGroup;
+import pojo.classes.PeCourse;
+import pojo.classes.PublicCourse;
 import service.student.CourseSelectService;
 import service.student.TimeModifyService;
 
@@ -44,8 +45,8 @@ public class StudentController {
         String id= (String) session.getAttribute("id");
         boolean timeFlag=timeModifyService.modifyOpTime(opType,opCourseType,id);
         if (timeFlag==true) {
-            List<NecessaryClassGroup> necessaryClassGroups = courseSelectService.selectNecessaryCourseById((String) session.getAttribute("id"));
-            model.addAttribute("necessaryClassGroups", necessaryClassGroups);
+            List<NecessaryCourseGroup> necessaryCourseGroups = courseSelectService.selectNecessaryCourseGrouping((String) session.getAttribute("id"));
+            model.addAttribute("necessaryCourseGroups", necessaryCourseGroups);
             return "student/jsp/1_1";
         }else {
             model.addAttribute("msg","error");//传递时间段错误信息，可以在前端根据msg判断
@@ -55,14 +56,24 @@ public class StudentController {
 
     // 1.2 转到专业选修课选课
     @RequestMapping("/StudentController/toSelectSelectiveCourse")
-    public String toSelectSelectiveCourse(Model model,HttpSession session){
-        List<DepartmentClass> selectiveCourses = courseSelectService.selectSelectiveCourseById((String) session.getAttribute("id"));
-        model.addAttribute("selectiveCourses",selectiveCourses);
-        return "student/jsp/1_2";
+    public String toSelectSelectiveCourse(int opType,int opCourseType,Model model, HttpSession session){
+        // 加一层时间验证
+        String id= (String) session.getAttribute("id");
+        boolean timeFlag=timeModifyService.modifyOpTime(opType,opCourseType,id);
+        if (timeFlag==true) {
+            List<DepartmentCourse> selectiveCourseList = courseSelectService.selectSelectiveCourseUnique((String) session.getAttribute("id"));
+            model.addAttribute("selectiveCourseListUnique", selectiveCourseList);
+            return "student/jsp/1_2";
+        }else {
+            model.addAttribute("msg","error");//传递时间段错误信息，可以在前端根据msg判断
+            return "student/jsp/1";//存在优化空间，应该给与alert提示而不是直接刷新
+        }
     }
     // 1.2. 转到专业选修课详情
     @RequestMapping("/StudentController/toSelectSelectiveCourseDes")
-    public String toSelectSelectiveCourseDes(){
+    public String toSelectSelectiveCourseDes(String className,Model model){
+        List<DepartmentCourse> selectiveCourseList = courseSelectService.selectSelectiveByCourseName(className);
+        model.addAttribute("selectiveCourseList",selectiveCourseList);
         return "student/jsp/1_2_";
     }
 
@@ -74,8 +85,8 @@ public class StudentController {
         String id= (String) session.getAttribute("id");
         boolean timeFlag=timeModifyService.modifyOpTime(opType,opCourseType,id);
         if(timeFlag==true) {
-            List<PeClass> pe_classes = courseSelectService.selectAllPECourse();
-            model.addAttribute("pE_Classes", pe_classes);
+            List<PeCourse> peCourses = courseSelectService.selectAllPeCourse();
+            model.addAttribute("peCourseListUnique", peCourses);
             return "student/jsp/1_3";
         }else {
             model.addAttribute("msg","error");//传递时间段错误信息，可以在前端根据msg判断
@@ -85,22 +96,23 @@ public class StudentController {
     // 1.3. 转到体育课详情
     @RequestMapping("/StudentController/toSelectPECourseDes")
     public String toSelectPECourseDes(String className, Model model){
-        List<PeClass> peClassList = courseSelectService.selectPeCourseByName(className);
-        model.addAttribute("peClassList",peClassList);
+        List<PeCourse> peCourseList = courseSelectService.selectPeByCourseName(className);
+        model.addAttribute("peCourseList", peCourseList);
         return "student/jsp/1_3_";
     }
 
 
     // 1.4 转到公选课选课
         //存在优化空间，应该给与alert提示而不是直接刷新
-    @RequestMapping("/StudentController/toSelectPublicCourse")
-    public String toSelectPublicCourse(int opType,int opCourseType,Model model, HttpSession session){
+    @RequestMapping("/StudentController/toSelectPublicCourse/{opType}/{opCourseType}")
+    public String toSelectPublicCourse(@PathVariable int opType, @PathVariable int opCourseType, Model model, HttpSession session){
         // 加一层时间验证
         String id= (String) session.getAttribute("id");
         boolean timeFlag=timeModifyService.modifyOpTime(opType,opCourseType,id);
+        System.out.println(timeFlag);
         if(timeFlag==true) {
-            List<PublicClass> publicClasses = courseSelectService.selectPublicCourseUnique();
-            model.addAttribute("publicClasses", publicClasses);
+            List<PublicCourse> publicCourses = courseSelectService.selectPublicCourseUnique();
+            model.addAttribute("publicCourseListUnique", publicCourses);
             return "student/jsp/1_4";
         }else {
             model.addAttribute("msg","error");//传递时间段错误信息，可以在前端根据msg判断
@@ -110,8 +122,8 @@ public class StudentController {
     // 1.4. 转到公选课详情
     @RequestMapping("/StudentController/toSelectPublicCourseDes")
     public String toSelectPublicCourseDes(String className, Model model){
-        List<PublicClass> publicClassList = courseSelectService.selectPublicCourseByName(className);
-        model.addAttribute("publicClassList",publicClassList);
+        List<PublicCourse> publicCourseList = courseSelectService.selectPublicByCourseName(className);
+        model.addAttribute("publicCourseList", publicCourseList);
         return "student/jsp/1_4_";
     }
 

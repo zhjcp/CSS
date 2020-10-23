@@ -1,19 +1,19 @@
 package service.utils;
 
-import pojo.classes.DepartmentClass;
-import pojo.classes.NecessaryClassGroup;
+import pojo.classes.DepartmentCourse;
+import pojo.classes.NecessaryCourseGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GroupingNecessaryUtil {
-    public static List<NecessaryClassGroup> group(List<DepartmentClass> classList){
-        ArrayList<NecessaryClassGroup> classGroupList;
+    public static List<NecessaryCourseGroup> group(List<DepartmentCourse> classList){
+        ArrayList<NecessaryCourseGroup> classGroupList;
         // 1. 首先统计有多少组套餐，并且记录不同的组号
         ArrayList<Integer> groupNumList=new ArrayList<>();
-        for (DepartmentClass departmentClass : classList) {
-            if (!chargeExist(departmentClass.getGroup(),groupNumList)){
-                groupNumList.add(departmentClass.getGroup());
+        for (DepartmentCourse departmentCourse : classList) {
+            if (!chargeExist(departmentCourse.getGroup(),groupNumList)){
+                groupNumList.add(departmentCourse.getGroup());
             }
         }
         // 2. 长度等于套餐组数的List lambda
@@ -21,13 +21,13 @@ public class GroupingNecessaryUtil {
         int length=groupNumList.size();
         classGroupList=new ArrayList<>();//初始化
         for (int i=0;i<length;i++){
-            classGroupList.add(new NecessaryClassGroup());
+            classGroupList.add(new NecessaryCourseGroup());
         }
         // 3. 将必修课放置到组号对应的位置
-        for (DepartmentClass departmentClass : classList) {
+        for (DepartmentCourse departmentCourse : classList) {
             for (int i=0;i<length;i++){
-                if (departmentClass.getGroup()==groupNumList.get(i)){
-                    classGroupList.get(i).addNecessaryCourse(departmentClass);
+                if (departmentCourse.getGroup()==groupNumList.get(i)){
+                    classGroupList.get(i).addNecessaryCourse(departmentCourse);
                 }
             }
         }

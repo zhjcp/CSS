@@ -11,6 +11,6 @@
     <title>公选课详情</title>
 </head>
 <body>
-
+    <h1>h哈哈哈哈哈哈</h1>
 </body>
 </html>

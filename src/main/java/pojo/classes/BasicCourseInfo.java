@@ -3,16 +3,16 @@ package pojo.classes;
 /*
 * 刚点进选课界面时的课程基本信息
 * */
-public class BasicClassInfo {
+public class BasicCourseInfo {
     private String name;
     private String department;
     private int hours;
     private int credits;
 
-    public BasicClassInfo() {
+    public BasicCourseInfo() {
     }
 
-    public BasicClassInfo(String name, String department, int hours, int credits) {
+    public BasicCourseInfo(String name, String department, int hours, int credits) {
         this.name = name;
         this.department = department;
         this.hours = hours;
@@ -53,7 +53,7 @@ public class BasicClassInfo {
 
     @Override
     public String toString() {
-        return "BasicClassInfo{" +
+        return "BasicCourseInfo{" +
                 "name='" + name + '\'' +
                 ", department='" + department + '\'' +
                 ", hours=" + hours +

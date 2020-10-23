@@ -1,14 +1,14 @@
 package pojo.classes;
 
-public class DepartmentClass extends Classes{
+public class DepartmentCourse extends Course {
         int group;
         int targetGrade;
 
 
-        public DepartmentClass() {
+        public DepartmentCourse() {
         }
 
-        public DepartmentClass(int id, String name, String type, String teacherName, int capacity, int hours, int credits, String description, int group, int targetGrade) {
+        public DepartmentCourse(int id, String name, String type, String teacherName, int capacity, int hours, int credits, String description, int group, int targetGrade) {
                 super(id, name, type, teacherName, capacity, hours, credits, description);
                 this.group = group;
                 this.targetGrade = targetGrade;
@@ -32,7 +32,7 @@ public class DepartmentClass extends Classes{
 
         @Override
         public String toString() {
-                return "DepartmentClass{" +
+                return "DepartmentCourse{" +
                         "group=" + group +
                         ", targetGrade=" + targetGrade +
                         ", id=" + id +

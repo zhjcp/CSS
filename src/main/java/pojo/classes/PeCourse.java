@@ -1,16 +1,16 @@
 package pojo.classes;
 
-public class PeClass extends Classes{
-    public PeClass() {
+public class PeCourse extends Course {
+    public PeCourse() {
     }
 
-    public PeClass(int id, String name, String type, String teacherName, int capacity, int hours, int credits, String description) {
+    public PeCourse(int id, String name, String type, String teacherName, int capacity, int hours, int credits, String description) {
         super(id, name, type, teacherName, capacity, hours, credits, description);
     }
 
     @Override
     public String toString() {
-        return "PeClass{" +
+        return "PeCourse{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +

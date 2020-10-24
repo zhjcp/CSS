@@ -18,29 +18,30 @@ import pojo.user.Student;
 import pojo.user.Teacher;
 import service.utils.GroupingNecessaryUtil;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service("stuCourseSelectServiceImpl")
 public class CourseSelectServiceImpl implements CourseSelectService{
     //service层调用dao层的方法操作数据库，需要一个Mapper实例
-    @Autowired @Qualifier("studentMapper")
+    @Resource(name = "studentMapper")
     StudentMapper studentMapper;
-    @Autowired @Qualifier("teacherMapper")
+    @Resource(name = "teacherMapper")
     TeacherMapper teacherMapper;
-    @Autowired @Qualifier("departmentCourseMapper")
+    @Resource(name = "departmentCourseMapper")
     DepartmentCourseMapper departmentCourseMapper;
-    @Autowired @Qualifier("peCourseMapper")
+    @Resource(name = "peCourseMapper")
     PeCourseMapper peCourseMapper;
-    @Autowired @Qualifier("publicCourseMapper")
+    @Resource(name = "publicCourseMapper")
     PublicCourseMapper publicCourseMapper;
-    @Autowired @Qualifier("necessarySelectionsMapper")
+    @Resource(name = "necessarySelectionsMapper")
     NecessarySelectionsMapper necessarySelectionsMapper;
-    @Autowired @Qualifier("selectiveSelectionsMapper")
+    @Resource(name = "selectiveSelectionsMapper")
     SelectiveSelectionsMapper selectiveSelectionsMapper;
-    @Autowired @Qualifier("peSelectionsMapper")
+    @Resource(name = "peSelectionsMapper")
     PeSelectionsMapper peSelectionsMapper;
-    @Autowired @Qualifier("publicSelectionsMapper")
+    @Resource(name = "publicSelectionsMapper")
     PublicSelectionsMapper publicSelectionsMapper;
 
 
@@ -134,7 +135,7 @@ public class CourseSelectServiceImpl implements CourseSelectService{
 
 
     @Override
-    // 提交选课 （首先要看这门课程有没有满）
+    // 提交选课 （本来首先要看这门课程有没有满,由于赋权故不需要了）
     public boolean tryToAddSelection(int courseId, String stuId, int selectionCoins) {
         //ps：前端首先检查了选课币的数目是否足够
         // 由于采取选课币的选课模式，在正选时不需要检查课程的容量
@@ -186,18 +187,39 @@ public class CourseSelectServiceImpl implements CourseSelectService{
     }
 
     @Override
-    // 查询一名学生的所有已选课程 （提供给 查看个人课程信息）
-    public List<Course> selectMyAllSelectedCourse(String stuId) {
+    // 查询一名学生的所有已选课程 （提供给 查看个人课程信息 依次:）
+    public AllSelectedCourse selectMyAllSelectedCourse(String stuId) {
         List<Course> myNecessaryCourseList = studentMapper.selectMyNecessaryCourse(stuId);
-        System.out.println(myNecessaryCourseList);
+        //System.out.println(myNecessaryCourseList);
         List<Course> mySelectiveCourseList = studentMapper.selectMySelectiveCourse(stuId);
-        System.out.println(mySelectiveCourseList);
+        //System.out.println(mySelectiveCourseList);
         List<Course> myPeCourseList = studentMapper.selectMyPeCourse(stuId);
-        System.out.println(myPeCourseList);
+        //System.out.println(myPeCourseList);
         List<Course> myPublicCourseList = studentMapper.selectMyPublicCourse(stuId);
-        System.out.println(myPublicCourseList);
-        return null;
+        //System.out.println(myPublicCourseList);
+        return new AllSelectedCourse(myNecessaryCourseList,mySelectiveCourseList,myPeCourseList,myPublicCourseList);
     }
 
 
+    @Override
+    // 退选某门课程+返回新的个人课程列表
+    public AllSelectedCourse returnACourseById(int courseId,String stuId) {
+        //  step1：根据课程的id ,分辨出课程的类别（专业选修、体育、公选）
+        //  step2:  学生id删除在相应的selections表内的记录
+        //  step3： 根据课程的id，将stuNum减1
+        if (courseId<=10000){
+            selectiveSelectionsMapper.deleteStuSelection(courseId,stuId);
+            DepartmentCourse dC = departmentCourseMapper.selectByCourseId(courseId);//删除在相应的selections表内的记录
+            departmentCourseMapper.updateStuNum(courseId,dC.getStuNum()-1);//将stuNum减1
+        }else if (courseId<=20000){
+            peSelectionsMapper.deleteStuSelection(courseId,stuId);
+            PeCourse pC = peCourseMapper.selectByCourseId(courseId);
+            peCourseMapper.updateStuNum(courseId,pC.getStuNum()-1);
+        }else {
+            publicSelectionsMapper.deleteStuSelection(courseId,stuId);
+            PublicCourse pC = publicCourseMapper.selectByCourseId(courseId);
+            publicCourseMapper.updateStuNum(courseId,pC.getStuNum()-1);
+        }
+        return selectMyAllSelectedCourse(stuId);
+    }
 }

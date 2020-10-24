@@ -8,16 +8,15 @@ import org.springframework.stereotype.Service;
 import pojo.other.SysState;
 import pojo.user.Student;
 
+import javax.annotation.Resource;
 import java.sql.Date;
 import java.util.Calendar;
 
 @Service
 public class TimeModifyServiceImpl implements TimeModifyService {
-    @Autowired
-    @Qualifier("studentMapper")
+    @Resource(name = "studentMapper")
     StudentMapper studentMapper;
-    @Autowired
-    @Qualifier("sysStateMapper")
+    @Resource(name = "sysStateMapper")
     SysStateMapper sysStateMapper;
 
     @Override
@@ -32,11 +31,17 @@ public class TimeModifyServiceImpl implements TimeModifyService {
                     Date date2 = new Date(Long.parseLong(sysState.getTime2()));
                     Date dateNow =new Date(Calendar.getInstance().getTimeInMillis());
                 if (dateNow.compareTo(date1) >= 0 && dateNow.compareTo(date2) <= 0) {
-                        flag=true;//合法时间
-                    }
+                        flag=true;//正选合法时间
+                    } else {
+                            Date date3 = new Date(Long.parseLong(sysState.getTime3()));
+                            Date date4 = new Date(Long.parseLong(sysState.getTime4()));
+                            if (dateNow.compareTo(date3) >= 0 && dateNow.compareTo(date4) <= 0) {
+                                flag=true;//补选合法时间
+                            }
+                }
                     break;
             }
-            case 2:{//补选
+            case 2:{//补选 (已经和1 合并了 不会用到)
                     Date date3 = new Date(Long.parseLong(sysState.getTime3()));
                     Date date4 = new Date(Long.parseLong(sysState.getTime4()));
                     Date dateNow =new Date(Calendar.getInstance().getTimeInMillis());

@@ -15,4 +15,6 @@ public interface PublicCourseMapper {
     public PublicCourse selectByCourseId(@Param("id") int id);
     //增加一个课堂的已选人数
     public void updateStuNum(@Param("id") int id,@Param("stuNum") int stuNum);
+    //查找stuNum > capacity的课堂   用处：根据找到的课堂的id去selections表中找到所有该课程的count
+    public List<Integer> selectCalculatingCourse();
 }

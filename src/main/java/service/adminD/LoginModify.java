@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pojo.user.AdminD;
 
+import javax.annotation.Resource;
+
 @Service("adminDLoginModify")
 public class LoginModify {
     //service层调用dao层的方法操作数据库，需要一个Mapper实例
-    @Autowired
-    @Qualifier("adminDMapper")
+    @Resource(name = "adminDMapper")
     AdminDMapper adminDMapper;
 
     public void setAdminDMapper(AdminDMapper adminDMapper) {

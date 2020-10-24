@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.classDao.DepartmentCourseMapper">
+        <select id="selectNecessaryCourse" resultType="pojo.classes.DepartmentCourse">
+            select * from css.course_department
+            where targetGrade=#{grade} and department=#{department} and id!=(-1)
+        </select>
+
+        <select id="selectSelectiveCourse" resultType="pojo.classes.DepartmentCourse">
+            select * from css.course_department
+            where targetGrade=#{grade} and department=#{department} and id=(-1)
+        </select>
+
+        <select id="selectSelectiveCourseByName" resultType="pojo.classes.DepartmentCourse">
+            select * from css.course_department where name=#{name}
+        </select>
+
+        <select id="selectByCourseId" resultType="pojo.classes.DepartmentCourse">
+            select * from css.course_department where id=#{id}
+        </select>
+
+        <update id="updateStuNum">
+            update css.course_department set stuNum=#{stuNum} where id=#{id}
+        </update>
+
+        <select id="selectNecessaryCourseByDGG" resultType="pojo.classes.DepartmentCourse">
+            select * from css.course_department
+            where department=#{department} and targetGrade=#{targetGrade} and groupId=#{groupId}
+        </select>
+
+        <select id="selectCalculatingCourse" resultType="integer">
+            select  cd.id
+            from css.course_department cd
+            where (cd.stuNum>cd.capacity)
+        </select>
+</mapper>

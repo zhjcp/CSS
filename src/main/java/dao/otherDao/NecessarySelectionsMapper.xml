@@ -21,4 +21,9 @@
     <select id="selectStuSelectionsById" resultType="pojo.other.CourseSelections">
         select * from css.necessary_selections where stuId=#{stuId}
     </select>
+
+    <update id="updateSelectedState">
+        update css.necessary_selections set state=#{newState}
+        where state=#{oldState}
+    </update>
 </mapper>

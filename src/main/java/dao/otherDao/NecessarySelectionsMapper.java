@@ -17,4 +17,7 @@ public interface NecessarySelectionsMapper {
 
     // 3. 查询一个学生的所有选课信息 （查询个人课程、生成课表）
     public List<CourseSelections> selectStuSelectionsById(@Param("stuId") String stuId);
+
+    // 4. 更新所有选课项的选课状态（1选课中--->2已选--->已修）
+    public int updateSelectedState(@Param("oldState") int oldState,@Param("newState") int newState);
 }

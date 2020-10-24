@@ -18,4 +18,10 @@
         <update id="updateStuNum">
             update css.course_public set stuNum=#{stuNum} where id=#{id}
         </update>
+
+        <select id="selectCalculatingCourse" resultType="integer">
+            select  cp.id
+            from css.course_public cp
+            where (cp.stuNum>cp.capacity)
+        </select>
 </mapper>

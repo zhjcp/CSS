@@ -10,7 +10,7 @@
                 (#{courseId}, #{stuId}, #{selectionCoins}, #{teacherId}, #{state})
         </insert>
 
-        <delete id="deleteStuSelection" parameterType="_int">
+        <delete id="deleteStuSelection">
             delete from css.selctive_selections where courseId=#{courseId} and stuId=#{stuId}
         </delete>
 
@@ -21,4 +21,9 @@
         <select id="selectStuSelectionsById" resultType="pojo.other.CourseSelections">
             select * from css.selctive_selections where stuId=#{stuId}
         </select>
+
+        <update id="updateSelectionState">
+            update css.pe_selections set state=#{newState}
+            where state=#{oldState}
+        </update>
 </mapper>

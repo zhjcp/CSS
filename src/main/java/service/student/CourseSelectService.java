@@ -40,5 +40,8 @@ public interface CourseSelectService {
     public boolean tryToAddSelectionGroup(int groupId,String stuId,int selectionCoins);
 
     // 查询一名学生的所有已选课程 （提供给 查看个人课程信息）
-    public List<Course> selectMyAllSelectedCourse(String stuId);
+    public AllSelectedCourse selectMyAllSelectedCourse(String stuId);
+
+    // 退选某门课程
+    public AllSelectedCourse returnACourseById(int courseId,String stuId);
 }

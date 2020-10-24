@@ -1,4 +1,4 @@
-package service;
+package service.stu;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -111,6 +111,7 @@ public class Test {
     }
 
     @org.junit.Test
+    //测试必修课选套餐
     public void testSubmit4(){
         ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
         CourseSelectService sCSSI = (CourseSelectService) context.getBean("stuCourseSelectServiceImpl");
@@ -119,9 +120,18 @@ public class Test {
     }
 
     @org.junit.Test
+    //测试查询个人的所有已选课程
     public void testSelectMyAllSelectedCourse(){
         ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
         CourseSelectService sCSSI = (CourseSelectService) context.getBean("stuCourseSelectServiceImpl");
         sCSSI.selectMyAllSelectedCourse("ST000001");
+    }
+
+    @org.junit.Test
+    //测试退选
+    public void testReturn(){
+        ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+        CourseSelectService sCSSI = (CourseSelectService) context.getBean("stuCourseSelectServiceImpl");
+        sCSSI.returnACourseById(5,"ST000001");
     }
 }

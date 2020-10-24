@@ -63,13 +63,18 @@
                   <div class="form-group col-md-offset-4 col-sm-8">
                       <label class="col-sm-1 labelText" style="height: 30px">账号</label>
                       <div class="col-sm-4">
-                          <input type="text" class="form-control" id="userName" name="id" placeholder="请输入账号">
+                          <input type="text" class="form-control" id="userName" name="id" placeholder="请输入账号" required>
                       </div>
                   </div>
                   <div class="form-group  col-md-offset-4 col-sm-8">
                       <label class="col-sm-1 labelText" style="height: 30px">密码</label>
                       <div class="col-sm-4">
-                          <input type="password" class="form-control" id="userPwd"  placeholder="请输入密码">
+                          <input type="password" class="form-control" id="userPwd"  placeholder="请输入密码" required>
+                      </div>
+                      <div class="col-md-3">
+                          <span style="color: red;font-weight: bold">
+                              <label class="labelText">${error}</label>
+                          </span>
                       </div>
                   </div>
 
@@ -80,6 +85,7 @@
                               <label>
                                   <input type="checkbox"> 记住密码
                               </label>
+                              <a class="col-md-offset-2" href="#" style="color: black">忘记密码</a>
                           </div>
                       </div>
                   </div>

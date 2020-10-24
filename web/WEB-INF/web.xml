@@ -47,4 +47,14 @@
             <filter-name>encoding</filter-name>
             <url-pattern>/*</url-pattern>
         </filter-mapping>
+
+        <!--  配置监听器  -->
+        <listener>
+            <listener-class>listener.SessionListener</listener-class>
+        </listener>
+
+        <!--  配置session过期销毁时间，便于后台统计在线人数  -->
+        <session-config>
+            <session-timeout>10</session-timeout>
+        </session-config>
 </web-app>

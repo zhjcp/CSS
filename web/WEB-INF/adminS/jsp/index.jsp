@@ -12,5 +12,12 @@
 </head>
 <body>
         <h1>${sessionScope.name}  欢迎你，校级管理员！</h1>
+        <h1>
+            实时在线的用户数：
+            <span style="color: red">
+                <%--<%=session.getServletContext().getAttribute("onlineCount")%>--%>
+                ${pageContext.request.session.servletContext.getAttribute("onlineCount")-1}
+            </span>
+        </h1>
 </body>
 </html>

@@ -11,22 +11,19 @@ import pojo.user.AdminS;
 import pojo.user.Student;
 import pojo.user.Teacher;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
     //service层实例
-    @Autowired
-    @Qualifier("stuLoginModify")
+    @Resource(name = "stuLoginModify")
     service.student.LoginModify stuLoginModify;
-    @Autowired
-    @Qualifier("teaLoginModify")
+    @Resource(name = "teaLoginModify")
     service.teacher.LoginModify teaLoginModify;
-    @Autowired
-    @Qualifier("adminDLoginModify")
+    @Resource(name = "adminDLoginModify")
     service.adminD.LoginModify adminDLoginModify;
-    @Autowired
-    @Qualifier("adminSLoginModify")
+    @Resource(name = "adminSLoginModify")
     service.adminS.LoginModify adminSLoginModify;
 
     //登录控制
@@ -42,10 +39,11 @@ public class LoginController {
                 if (adminD != null) {
                     session.setAttribute("id", adminD.getId());//id可以传给前端，用来拼接头像路径
                     session.setAttribute("name", adminD.getName());
+                    session.removeAttribute("error");
                     return "adminD/jsp/index";//跳转到主页
                 } else {
                     System.out.println("=====没找到该院系管理员");
-                    model.addAttribute("error", "账号或者密码错误");
+                    session.setAttribute("error", "账号或者密码错误!");
                     return "redirect:/index.jsp";
                 }
             }
@@ -55,10 +53,11 @@ public class LoginController {
                 if (adminS != null) {
                     session.setAttribute("id", adminS.getId());//id可以传给前端，用来拼接头像路径
                     session.setAttribute("name", adminS.getName());
+                    session.removeAttribute("error");
                     return "adminS/jsp/index";//跳转到主页
                 } else {
                     System.out.println("=====没找到该校级管理员");
-                    model.addAttribute("error", "账号或者密码错误");
+                    session.setAttribute("error", "账号或者密码错误!");
                     return "redirect:/index.jsp";
                 }
             }
@@ -68,10 +67,11 @@ public class LoginController {
                 if (stu != null) {
                     session.setAttribute("id", stu.getId());//id可以传给前端，用来拼接头像路径
                     session.setAttribute("name", stu.getName());
+                    session.removeAttribute("error");
                     return "student/jsp/index";//跳转到主页
                 } else {
                     System.out.println("=====没找到该学生");
-                    model.addAttribute("error", "账号或者密码错误");
+                    session.setAttribute("error", "账号或者密码错误!");
                     return "redirect:/index.jsp";
                 }
             }
@@ -81,16 +81,17 @@ public class LoginController {
                 if (tea != null) {
                     session.setAttribute("id", tea.getId());
                     session.setAttribute("name", tea.getName());
+                    session.removeAttribute("error");
                     return "teacher/jsp/index";//跳转到主页
                 } else {
-                    model.addAttribute("error", "账号或者密码错误");
+                    session.setAttribute("error", "账号或者密码错误!");
                     return "redirect:/index.jsp";
                 }
             }
             default: {
                 //啥身份也不是
-                model.addAttribute("error", "账号或者密码错误");
-                return "/index.jsp";
+                session.setAttribute("error", "账号或者密码错误!");
+                return "redirect:/index.jsp";
             }
         }
     }

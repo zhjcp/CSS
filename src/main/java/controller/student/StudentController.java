@@ -91,6 +91,8 @@ public class StudentController {
         String id= (String) session.getAttribute("id");
         boolean submitFlag = courseSelectService.tryToAddSelection(courseId, id, selectionCoins);
         if (submitFlag==true){
+            List<DepartmentCourse> selectiveCourseList = courseSelectService.selectSelectiveCourseUnique((String) session.getAttribute("id"));
+            model.addAttribute("selectiveCourseListUnique", selectiveCourseList);
             return "student/jsp/1_2";
         }else {
             model.addAttribute("msg","error");//传递选课失败错误信息，可以在前端根据msg判断
@@ -128,6 +130,8 @@ public class StudentController {
         String id= (String) session.getAttribute("id");
         boolean submitFlag = courseSelectService.tryToAddSelection(courseId, id, selectionCoins);
         if (submitFlag==true){
+            List<PeCourse> peCourses = courseSelectService.selectAllPeCourse();
+            model.addAttribute("peCourseListUnique", peCourses);
             return "student/jsp/1_3";
         }else {
             model.addAttribute("msg","error");//传递选课失败错误信息，可以在前端根据msg判断
@@ -167,6 +171,8 @@ public class StudentController {
         String id= (String) session.getAttribute("id");
         boolean submitFlag = courseSelectService.tryToAddSelection(courseId, id, selectionCoins);
         if (submitFlag==true){
+            List<PublicCourse> publicCourses = courseSelectService.selectPublicCourseUnique();
+            model.addAttribute("publicCourseListUnique", publicCourses);
             return "student/jsp/1_4";
         }else {
             model.addAttribute("msg","error");//传递选课失败信息，可以在前端根据msg判断

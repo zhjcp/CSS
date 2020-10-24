@@ -5,12 +5,12 @@
 <mapper namespace="dao.classDao.DepartmentCourseMapper">
         <select id="selectNecessaryCourse" resultType="pojo.classes.DepartmentCourse">
             select * from css.course_department
-            where targetGrade=#{grade} and department=#{department} and id!=(-1)
+            where targetGrade=#{grade} and department=#{department} and groupId!=(-1)
         </select>
 
         <select id="selectSelectiveCourse" resultType="pojo.classes.DepartmentCourse">
             select * from css.course_department
-            where targetGrade=#{grade} and department=#{department} and id=(-1)
+            where targetGrade=#{grade} and department=#{department} and groupId=(-1)
         </select>
 
         <select id="selectSelectiveCourseByName" resultType="pojo.classes.DepartmentCourse">

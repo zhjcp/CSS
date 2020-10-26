@@ -49,8 +49,8 @@ public class StudentController {
     }
     // 1.. 提交必修课套餐选课
     //      ps：选课币的数量条件验证交给了前端
-    @RequestMapping("/StudentController/submitASelectionGrouping/{groupId}/{selectionCoins}")
-    public String submitASelectionGroup(@PathVariable int groupId,@PathVariable int selectionCoins,Model model,HttpSession session){
+    @RequestMapping("/StudentController/submitASelectionGrouping")
+    public String submitASelectionGroup( int groupId, int selectionCoins,Model model,HttpSession session){
         String id= (String) session.getAttribute("id");
         boolean submitFlag = courseSelectService.tryToAddSelectionGroup(groupId, id, selectionCoins);
         if (submitFlag==true) {
@@ -86,8 +86,8 @@ public class StudentController {
         return "student/jsp/1_2_";
     }
     // 1.2.. 提交专业课选课
-    @RequestMapping("/StudentController/submitASelection2/{courseId}/{selectionCoins}")
-    public String submitASelection2(@PathVariable int courseId, @PathVariable int selectionCoins,Model model,HttpSession session){
+    @RequestMapping("/StudentController/submitASelection2")
+    public String submitASelection2(int courseId,  int selectionCoins,Model model,HttpSession session){
         String id= (String) session.getAttribute("id");
         boolean submitFlag = courseSelectService.tryToAddSelection(courseId, id, selectionCoins);
         if (submitFlag==true){
@@ -125,8 +125,8 @@ public class StudentController {
         return "student/jsp/1_3_";
     }
     // 1.3.. 提交体育课选课
-    @RequestMapping("/StudentController/submitASelection3/{courseId}/{selectionCoins}")
-    public String submitASelection3(@PathVariable int courseId, @PathVariable int selectionCoins,Model model,HttpSession session){
+    @RequestMapping("/StudentController/submitASelection3")
+    public String submitASelection3( int courseId,  int selectionCoins,Model model,HttpSession session){
         String id= (String) session.getAttribute("id");
         boolean submitFlag = courseSelectService.tryToAddSelection(courseId, id, selectionCoins);
         if (submitFlag==true){
@@ -166,8 +166,8 @@ public class StudentController {
         return "student/jsp/1_4_";
     }
     // 1.4.. 提交公选课选课
-    @RequestMapping("/StudentController/submitASelection4/{courseId}/{selectionCoins}")
-    public String submitASelection4(@PathVariable int courseId, @PathVariable int selectionCoins,Model model,HttpSession session){
+    @RequestMapping("/StudentController/submitASelection4")
+    public String submitASelection4( int courseId,  int selectionCoins,Model model,HttpSession session){
         String id= (String) session.getAttribute("id");
         boolean submitFlag = courseSelectService.tryToAddSelection(courseId, id, selectionCoins);
         if (submitFlag==true){

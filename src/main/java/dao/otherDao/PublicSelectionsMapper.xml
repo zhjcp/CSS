@@ -10,7 +10,7 @@
             (#{courseId}, #{stuId}, #{selectionCoins}, #{teacherId}, #{state})
     </insert>
 
-    <delete id="deleteStuSelection" parameterType="_int">
+    <delete id="deleteStuSelection">
         delete from css.public_selections where courseId=#{courseId} and stuId=#{stuId}
     </delete>
 
